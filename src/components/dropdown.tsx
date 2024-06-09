@@ -12,22 +12,7 @@ import {
 } from "react-native-responsive-screen";
 import Entypo from "react-native-vector-icons/Entypo";
 
-interface Item {
-  title: string;
-  value: string | number;
-}
-
-// Define the interface for the props
-interface DropdownPickerProps {
-  title: string;
-  data: Item[];
-  selectedValues: [];
-  onSelect: (selected: []) => void;
-  placeHolderTitle: string;
-}
-
-// Update the component to use the props interface
-export const DropdownPicker: React.FC<DropdownPickerProps> = ({
+export const DropdownPicker = ({
   title,
   data,
   selectedValues,
@@ -85,20 +70,7 @@ export const DropdownPicker: React.FC<DropdownPickerProps> = ({
   );
 };
 
-interface Item {
-  title: string;
-  value: string | number;
-}
-
-interface DropdownProps {
-  title: string;
-  data: Item[];
-  selectedValue: Item | null;
-  onSelect: (item: Item) => void;
-  placeHolderTitle: string;
-}
-
-export const Dropdown: React.FC<DropdownProps> = ({
+export const Dropdown = ({
   title,
   data,
   selectedValue,
@@ -106,6 +78,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
   placeHolderTitle,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
+
+  console.log("selectedValue", selectedValue);
 
   const handleSelect = (item: Item) => {
     onSelect(item);
@@ -120,7 +94,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         onPress={() => setIsVisible(!isVisible)}
       >
         <Text style={styles.text}>
-          <Text>{selectedValue ? selectedValue.title : placeHolderTitle}</Text>
+          <Text>{selectedValue ? selectedValue : placeHolderTitle}</Text>
         </Text>
         <View style={[styles.plusView, { backgroundColor: "#F2F2F3" }]}>
           <Entypo name={"chevron-small-down"} size={20} color={"#95969D"} />

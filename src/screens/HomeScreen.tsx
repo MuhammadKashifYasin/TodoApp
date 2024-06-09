@@ -16,21 +16,38 @@ import Feather from "react-native-vector-icons/Feather";
 import { Button, Header } from "../components/buttonAndHeader";
 import PreView from "../components/Preview";
 import { Dropdown, DropdownPicker } from "../components/dropdown";
-import dummyData from "../components/dummyData.json";
+import { dummyData } from "../utils/constant";
+
+interface Item {
+  title: string;
+  value: string | number;
+}
+
+interface Props {
+  navigation: any;
+}
+
+const defaultJobData = {
+  jobTitle: "",
+  description: "",
+  selectedSkills: [] as string[],
+  selectedJobType: "",
+  selectedEducation: "",
+  selectedExperience: "",
+  requirement: "",
+};
 
 const HomeScreen: React.FC<Props> = ({ navigation }) => {
   const [selectedStep, setSelectedStep] = useState(0);
   const [jobTitle, setJobTitle] = useState("");
   const [description, setDescription] = useState("");
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
-  const [selectedJobType, setSelectedJobType] = useState<Item | null>(null);
-  const [selectedEducation, setSelectedEducation] = useState<Item | null>(null);
-  const [selectedExperience, setSelectedExperience] = useState<Item | null>(
-    null
-  );
+  const [selectedJobType, setSelectedJobType] = useState("");
+  const [selectedEducation, setSelectedEducation] = useState("");
+  const [selectedExperience, setSelectedExperience] = useState("");
   const [requirement, setRequirement] = useState("");
 
-  const [jobData, setJobData] = useState(null);
+  const [jobData, setJobData] = useState(defaultJobData);
   const maxLength = 1500;
   const progress1 = useRef(new Animated.Value(0)).current;
   const progress2 = useRef(new Animated.Value(0)).current;
@@ -102,7 +119,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
     }
   };
 
-  const renderCircle = (step) => {
+  const renderCircle = (step: number) => {
     const isCompleted = step < selectedStep;
     const isActive = step === selectedStep;
     return (
@@ -118,7 +135,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
     );
   };
 
-  const renderLine = (step) => {
+  const renderLine = (step: number) => {
     const isCompleted = step < selectedStep;
     return <View style={[styles.line, isCompleted && styles.lineCompleted]} />;
   };
@@ -296,21 +313,21 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
               title="Job Type"
               data={JobType}
               selectedValue={selectedJobType}
-              onSelect={setSelectedJobType}
+              onSelect={(e: any) => setSelectedJobType(e.title)}
               placeHolderTitle="Select job type"
             />
             <Dropdown
               title="Education"
               data={Education}
               selectedValue={selectedEducation}
-              onSelect={setSelectedEducation}
+              onSelect={(e: any) => setSelectedEducation(e.title)}
               placeHolderTitle="Select Education"
             />
             <Dropdown
               title="Experience"
               data={Experience}
               selectedValue={selectedExperience}
-              onSelect={setSelectedExperience}
+              onSelect={(e: any) => setSelectedExperience(e.title)}
               placeHolderTitle="Select Experience"
             />
           </>
