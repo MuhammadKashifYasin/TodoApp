@@ -18,14 +18,16 @@ import PreView from "../components/Preview";
 import { Dropdown, DropdownPicker } from "../components/dropdown";
 import dummyData from "../components/dummyData.json";
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen: React.FC<Props> = ({ navigation }) => {
   const [selectedStep, setSelectedStep] = useState(0);
   const [jobTitle, setJobTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [selectedJobType, setSelectedJobType] = useState("");
-  const [selectedEducation, setSelectedEducation] = useState("");
-  const [selectedExperience, setSelectedExperience] = useState("");
-  const [selectedSkills, setSelectedSkills] = useState([]);
+  const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
+  const [selectedJobType, setSelectedJobType] = useState<Item | null>(null);
+  const [selectedEducation, setSelectedEducation] = useState<Item | null>(null);
+  const [selectedExperience, setSelectedExperience] = useState<Item | null>(
+    null
+  );
   const [requirement, setRequirement] = useState("");
 
   const [jobData, setJobData] = useState(null);
@@ -288,30 +290,28 @@ const HomeScreen = ({ navigation }) => {
               data={Skills}
               selectedValues={selectedSkills}
               onSelect={setSelectedSkills}
-              placeHolderTitle={"Type Skill"}
+              placeHolderTitle="Type Skill"
             />
             <Dropdown
               title="Job Type"
               data={JobType}
               selectedValue={selectedJobType}
               onSelect={setSelectedJobType}
-              placeHolderTitle={"Select job type"}
+              placeHolderTitle="Select job type"
             />
-
             <Dropdown
               title="Education"
               data={Education}
               selectedValue={selectedEducation}
               onSelect={setSelectedEducation}
-              placeHolderTitle={"Select Education"}
+              placeHolderTitle="Select Education"
             />
-
             <Dropdown
               title="Experience"
               data={Experience}
               selectedValue={selectedExperience}
               onSelect={setSelectedExperience}
-              placeHolderTitle={"Select Experience"}
+              placeHolderTitle="Select Experience"
             />
           </>
         )}
